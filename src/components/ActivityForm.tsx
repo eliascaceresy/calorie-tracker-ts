@@ -19,9 +19,11 @@ const ActivityForm = ({ dispatch }: ActivityFormmProps) => {
   const [activity, setActivity] = useState<ActivityType>(initialStateForm);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+    const value = e.target.id === "category" ? Number(e.target.value) : e.target.value;
+
     setActivity({
       ...activity,
-      [e.target.id]: e.target.value,
+      [e.target.id]: value,
     });
   };
 
