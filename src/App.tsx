@@ -2,6 +2,7 @@ import { useCallback, useEffect, useReducer } from "react";
 import ActivityForm from "./components/ActivityForm";
 import { activityReducer, initialState } from "./reducers/activityReducer";
 import ActivitiesList from "./components/ActivitiesList";
+import CaloriesTacker from "./components/CaloriesTacker";
 
 function App() {
   const [state, dispatch] = useReducer(
@@ -35,13 +36,18 @@ function App() {
           </button>
         </div>
       </header>
-      <section className="bg-lime-100 py-20 px-5">
+      <section className="bg-lime-50 p-5">
         <div className="max-w-4xl mx-auto">
           <ActivityForm dispatch={dispatch} activityEdit={(state ?? initialState).activityEdit!} />
         </div>
       </section>
-      <section className="bg-lime-100 p-5">
-        <div className="max-w-4xl mx-auto">
+      <section className="bg-lime-50 p-5">
+        <div className="max-w-4xl mx-auto bg-white p-5 rounded-lg shadow-lg">
+          <CaloriesTacker activities={state?.activities ?? []} />
+        </div>
+      </section>
+      <section className="bg-lime-50 p-5">
+        <div className="max-w-4xl mx-auto bg-white p-5 rounded-lg shadow-lg">
           <ActivitiesList activities={state?.activities ?? []} dispatch={dispatch} />
         </div>
       </section>

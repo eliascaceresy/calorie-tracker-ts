@@ -4,12 +4,12 @@ import categories from "../data/categories";
 import type { ActivityType } from "../types";
 import type { ActivityActionsType } from "../reducers/activityReducer";
 
-type ActivityFormmProps = {
+type ActivityFormmPropsType = {
   dispatch: ActionDispatch<[action: ActivityActionsType]>;
   activityEdit: ActivityType;
 };
 
-const ActivityForm = ({ dispatch, activityEdit }: ActivityFormmProps) => {
+const ActivityForm = ({ dispatch, activityEdit }: ActivityFormmPropsType) => {
   const initialStateForm: ActivityType = {
     id: uuidv4(),
     category: 1,
@@ -27,7 +27,7 @@ const ActivityForm = ({ dispatch, activityEdit }: ActivityFormmProps) => {
   }, [activityEdit]);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
-    const value = e.target.id === "category" ? Number(e.target.value) : e.target.value;
+    const value = e.target.id === "category" || e.target.id === "calories" ? Number(e.target.value) : e.target.value;
 
     setActivity({
       ...activity,

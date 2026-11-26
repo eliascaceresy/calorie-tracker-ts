@@ -4,12 +4,12 @@ import type { ActivityType } from "../types";
 import categories from "../data/categories";
 import type { ActivityActionsType } from "../reducers/activityReducer";
 
-type ActivitiesListProps = {
+type ActivitiesListPropsType = {
   activities: ActivityType[];
   dispatch: ActionDispatch<[action: ActivityActionsType]>;
 };
 
-const ActivitiesList = ({ activities, dispatch }: ActivitiesListProps) => {
+const ActivitiesList = ({ activities, dispatch }: ActivitiesListPropsType) => {
   const activityCategoryName = (categoryId: number) =>
     categories.find(category => category.id === categoryId)?.name ?? "Categoría desconocida";
 
