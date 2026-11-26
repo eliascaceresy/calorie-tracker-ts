@@ -4,11 +4,11 @@ import categories from "../data/categories";
 import type { ActivityType } from "../types";
 import type { ActivityActionsType } from "../reducers/activityReducer";
 
-type FormProps = {
+type ActivityFormmProps = {
   dispatch: ActionDispatch<[action: ActivityActionsType]>;
 };
 
-const Form = ({ dispatch }: FormProps) => {
+const ActivityForm = ({ dispatch }: ActivityFormmProps) => {
   const initialStateForm: ActivityType = {
     id: uuidv4(),
     category: 1,
@@ -92,4 +92,4 @@ const Form = ({ dispatch }: FormProps) => {
   );
 };
 
-export default Form;
+export default ActivityForm;
