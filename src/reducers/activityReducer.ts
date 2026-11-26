@@ -25,7 +25,7 @@ export const activityReducer = (state: ActivityStateType = initialState, action:
   if (action.type === "editActivity") {
     return {
       ...state,
-      activityEdit: action.payload.activity,
+      activsityEdit: action.payload.activity,
     };
   }
   if (action.type === "updateActivity") {
