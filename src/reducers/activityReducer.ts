@@ -4,7 +4,8 @@ export type ActivityActionsType =
   | { type: "saveActivity"; payload: { newActivity: ActivityType } }
   | { type: "editActivity"; payload: { activity: ActivityType } }
   | { type: "updateActivity"; payload: { activity: ActivityType } }
-  | { type: "deleteActivity"; payload: { activityId: ActivityType["id"] } };
+  | { type: "deleteActivity"; payload: { activityId: ActivityType["id"] } }
+  | { type: "resetApp" };
 
 type ActivityStateType = {
   activities: ActivityType[];
@@ -47,6 +48,13 @@ export const activityReducer = (state: ActivityStateType = initialState, action:
     return {
       ...state,
       activities: state.activities.filter(a => a.id !== action.payload.activityId),
+    };
+  }
+
+  if (action.type === "resetApp") {
+    return {
+      activities: [],
+      activityEdit: {},
     };
   }
 };
