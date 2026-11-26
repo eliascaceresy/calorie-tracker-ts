@@ -1,5 +1,5 @@
 import type { ActionDispatch } from "react";
-import { PencilSquareIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import type { ActivityType } from "../types";
 import categories from "../data/categories";
 import type { ActivityActionsType } from "../reducers/activityReducer";
@@ -15,6 +15,10 @@ const ActivitiesList = ({ activities, dispatch }: ActivitiesListProps) => {
 
   const handleEdit = (activity: ActivityType) => {
     dispatch({ type: "editActivity", payload: { activity } });
+  };
+
+  const handleDelete = (id: ActivityType["id"]) => {
+    dispatch({ type: "deleteActivity", payload: { activityId: id } });
   };
 
   return (
@@ -36,6 +40,9 @@ const ActivitiesList = ({ activities, dispatch }: ActivitiesListProps) => {
           <div className="flex gap-5 items-center">
             <button className="hover:cursor-pointer" title="Editar" onClick={() => handleEdit(activity)}>
               <PencilSquareIcon className="h-8 w-8 text-gray-800" />
+            </button>
+            <button className="hover:cursor-pointer" title="Eliminar" onClick={() => handleDelete(activity.id)}>
+              <TrashIcon className="h-8 w-8 text-red-800" />
             </button>
           </div>
         </div>

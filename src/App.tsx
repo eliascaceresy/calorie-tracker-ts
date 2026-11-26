@@ -4,7 +4,13 @@ import { activityReducer, initialState } from "./reducers/activityReducer";
 import ActivitiesList from "./components/ActivitiesList";
 
 function App() {
-  const [state, dispatch] = useReducer(activityReducer, initialState);
+  const [state, dispatch] = useReducer(
+    activityReducer as (
+      state: typeof initialState | undefined,
+      action: Parameters<typeof activityReducer>[1]
+    ) => typeof initialState | undefined,
+    initialState
+  );
 
   return (
     <>
