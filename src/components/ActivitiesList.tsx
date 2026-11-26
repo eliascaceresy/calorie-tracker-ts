@@ -1,13 +1,21 @@
+import type { ActionDispatch } from "react";
+import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import type { ActivityType } from "../types";
 import categories from "../data/categories";
+import type { ActivityActionsType } from "../reducers/activityReducer";
 
 type ActivitiesListProps = {
   activities: ActivityType[];
+  dispatch: ActionDispatch<[action: ActivityActionsType]>;
 };
 
-const ActivitiesList = ({ activities }: ActivitiesListProps) => {
+const ActivitiesList = ({ activities, dispatch }: ActivitiesListProps) => {
   const activityCategoryName = (categoryId: number) =>
     categories.find(category => category.id === categoryId)?.name ?? "Categoría desconocida";
+
+  const handleEdit = (activity: ActivityType) => {
+    dispatch({ type: "editActivity", payload: { activity } });
+  };
 
   return (
     <>
@@ -25,7 +33,11 @@ const ActivitiesList = ({ activities }: ActivitiesListProps) => {
               {activity.calories} <span>Calorias</span>
             </p>
           </div>
-          <div></div>
+          <div className="flex gap-5 items-center">
+            <button className="hover:cursor-pointer" title="Editar" onClick={() => handleEdit(activity)}>
+              <PencilSquareIcon className="h-8 w-8 text-gray-800" />
+            </button>
+          </div>
         </div>
       ))}
     </>

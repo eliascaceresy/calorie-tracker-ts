@@ -15,12 +15,12 @@ function App() {
       </header>
       <section className="bg-lime-100 py-20 px-5">
         <div className="max-w-4xl mx-auto">
-          <ActivityForm dispatch={dispatch} />
+          <ActivityForm dispatch={dispatch} activityEdit={(state ?? initialState).activityEdit!} />
         </div>
       </section>
       <section className="bg-lime-100 p-5">
         <div className="max-w-4xl mx-auto">
-          <ActivitiesList activities={state?.activities ?? []} />
+          <ActivitiesList activities={state?.activities ?? []} dispatch={dispatch} />
         </div>
       </section>
     </>

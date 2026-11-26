@@ -1,4 +1,4 @@
-import { useState, type ActionDispatch, type ChangeEvent, type SubmitEvent } from "react";
+import { useEffect, useState, type ActionDispatch, type ChangeEvent, type SubmitEvent } from "react";
 import { v4 as uuidv4 } from "uuid";
 import categories from "../data/categories";
 import type { ActivityType } from "../types";
@@ -6,9 +6,10 @@ import type { ActivityActionsType } from "../reducers/activityReducer";
 
 type ActivityFormmProps = {
   dispatch: ActionDispatch<[action: ActivityActionsType]>;
+  activityEdit: ActivityType;
 };
 
-const ActivityForm = ({ dispatch }: ActivityFormmProps) => {
+const ActivityForm = ({ dispatch, activityEdit }: ActivityFormmProps) => {
   const initialStateForm: ActivityType = {
     id: uuidv4(),
     category: 1,
@@ -17,6 +18,13 @@ const ActivityForm = ({ dispatch }: ActivityFormmProps) => {
   };
 
   const [activity, setActivity] = useState<ActivityType>(initialStateForm);
+
+  useEffect(() => {
+    if (Object.keys(activityEdit).length > 0) {
+      console.log(activityEdit);
+      setActivity({ ...activityEdit });
+    }
+  }, [activityEdit]);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const value = e.target.id === "category" ? Number(e.target.value) : e.target.value;
@@ -35,7 +43,12 @@ const ActivityForm = ({ dispatch }: ActivityFormmProps) => {
 
   const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch({ type: "saveActivity", payload: { newActivity: activity } });
+
+    if (Object.keys(activityEdit).length > 0) {
+      dispatch({ type: "updateActivity", payload: { activity } });
+    } else {
+      dispatch({ type: "saveActivity", payload: { newActivity: activity } });
+    }
 
     setActivity({ ...initialStateForm, id: uuidv4() });
   };

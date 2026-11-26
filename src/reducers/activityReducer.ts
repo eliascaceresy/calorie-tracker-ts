@@ -1,16 +1,18 @@
 import type { ActivityType } from "../types";
 
-export type ActivityActionsType = {
-  type: "saveActivity";
-  payload: { newActivity: ActivityType };
-};
+export type ActivityActionsType =
+  | { type: "saveActivity"; payload: { newActivity: ActivityType } }
+  | { type: "editActivity"; payload: { activity: ActivityType } }
+  | { type: "updateActivity"; payload: { activity: ActivityType } };
 
 type ActivityStateType = {
   activities: ActivityType[];
+  activityEdit: ActivityType;
 };
 
 export const initialState: ActivityStateType = {
   activities: [],
+  activityEdit: {} as ActivityType,
 };
 
 export const activityReducer = (state: ActivityStateType = initialState, action: ActivityActionsType) => {
@@ -18,6 +20,21 @@ export const activityReducer = (state: ActivityStateType = initialState, action:
     return {
       ...state,
       activities: [...state.activities, action.payload.newActivity],
+    };
+  }
+  if (action.type === "editActivity") {
+    return {
+      ...state,
+      activityEdit: action.payload.activity,
+    };
+  }
+  if (action.type === "updateActivity") {
+    return {
+      ...state,
+      activities: state.activities.map(current =>
+        current.id === action.payload.activity.id ? action.payload.activity : current,
+      ),
+      activityEdit: {},
     };
   }
 };
