@@ -24,6 +24,11 @@ const ActivitiesList = ({ activities, dispatch }: ActivitiesListProps) => {
   return (
     <>
       <h2 className="text-4xl font-bold text-slate-600 text-center">Comida y Actividades</h2>
+      {activities.length === 0 && (
+        <p className="text-center bg-gray-500 uppercase p-5 mt-5 text-white rounded-lg shadow-lg">
+          No has agregado tus actividades!
+        </p>
+      )}
       {activities.map(activity => (
         <div key={activity.id} className="px-5 py-4 bg-white mt-5 flex justify-between rounded-lg shadow-lg">
           <div className="space-y-3 relative">
@@ -39,7 +44,7 @@ const ActivitiesList = ({ activities, dispatch }: ActivitiesListProps) => {
           </div>
           <div className="flex gap-5 items-center">
             <button className="hover:cursor-pointer" title="Editar" onClick={() => handleEdit(activity)}>
-              <PencilSquareIcon className="h-8 w-8 text-gray-800" />
+              <PencilSquareIcon className="h-8 w-8 text-yellow-800" />
             </button>
             <button className="hover:cursor-pointer" title="Eliminar" onClick={() => handleDelete(activity.id)}>
               <TrashIcon className="h-8 w-8 text-red-800" />
