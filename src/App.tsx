@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import ActivityForm from "./components/ActivityForm";
 import { activityReducer, initialState } from "./reducers/activityReducer";
 import ActivitiesList from "./components/ActivitiesList";
@@ -7,10 +7,14 @@ function App() {
   const [state, dispatch] = useReducer(
     activityReducer as (
       state: typeof initialState | undefined,
-      action: Parameters<typeof activityReducer>[1]
+      action: Parameters<typeof activityReducer>[1],
     ) => typeof initialState | undefined,
-    initialState
+    initialState,
   );
+
+  useEffect(() => {
+    localStorage.setItem("activities", JSON.stringify(state?.activities));
+  }, [state?.activities]);
 
   return (
     <>

@@ -11,8 +11,13 @@ type ActivityStateType = {
   activityEdit: ActivityType;
 };
 
+const localActivities = () => {
+  const activities = localStorage.getItem("activities");
+  return activities ? JSON.parse(activities) : [];
+};
+
 export const initialState: ActivityStateType = {
-  activities: [],
+  activities: localActivities(),
   activityEdit: {} as ActivityType,
 };
 
@@ -26,7 +31,7 @@ export const activityReducer = (state: ActivityStateType = initialState, action:
   if (action.type === "editActivity") {
     return {
       ...state,
-      activsityEdit: action.payload.activity,
+      activityEdit: action.payload.activity,
     };
   }
   if (action.type === "updateActivity") {
